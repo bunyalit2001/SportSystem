@@ -32,6 +32,9 @@ func main() {
 	r := gin.Default()
 	r.Use(CORSMiddleware())
 
+	r.GET("/healthz", controller.Health)
+	r.GET("/readyz", controller.Readiness)
+
 	//combobox Location
 	r.GET("/location", controller.ListLocation)
 	//combobox sport type

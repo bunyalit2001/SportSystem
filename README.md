@@ -60,6 +60,13 @@ Backend จะรันที่:
 http://localhost:8080
 ```
 
+Health check:
+
+```text
+GET /healthz  # ตรวจว่า backend process ยังตอบได้
+GET /readyz   # ตรวจว่า backend ติดต่อ database ได้หรือไม่
+```
+
 ### 3. รัน Frontend
 
 เปิด terminal อีกหน้าต่าง แล้วรันคำสั่ง:

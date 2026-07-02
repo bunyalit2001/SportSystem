@@ -6,6 +6,8 @@
 
 - Frontend: `http://localhost:3000`
 - Backend API: `http://localhost:8080`
+- Backend health: `http://localhost:8080/healthz`
+- Database readiness: `http://localhost:8080/readyz`
 
 ## Roles
 
@@ -68,6 +70,8 @@
 
 | Method | Endpoint | Description |
 | --- | --- | --- |
+| `GET` | `/healthz` | ตรวจสถานะ backend server |
+| `GET` | `/readyz` | ตรวจสถานะการเชื่อมต่อ database |
 | `POST` | `/createmember` | สมัครสมาชิก |
 | `POST` | `/Login` | เข้าสู่ระบบสมาชิก |
 | `POST` | `/StaffLogin` | เข้าสู่ระบบเจ้าหน้าที่ |
