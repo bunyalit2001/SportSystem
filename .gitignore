@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+
+# Environment variables
+.env
+.env.*
+!.env.example
+neon.md
+
+# Backend database / local files
+backend/sport-center-management.db
+backend/*.db
+backend/*.db-*
+
+# Go build / test output
+backend/tmp/
+backend/bin/
+backend/.gocache/
+*.test
+*.out
+coverage.out
+
+# Frontend dependencies / build output
+frontend/node_modules/
+frontend/build/
+frontend/.pnp
+frontend/.pnp.js
+frontend/coverage/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
