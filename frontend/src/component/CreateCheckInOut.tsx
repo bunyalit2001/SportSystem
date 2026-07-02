@@ -71,7 +71,10 @@ function App() {
 
     const requestOptionsGet = {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+        },
     };
 
     const feachStatus = async () => {
@@ -179,47 +182,68 @@ function App() {
         let val = typeof data === "string" ? parseInt(data) : data;
         return val;
     };
+
+    const getReservationID = () => {
+        const id = Number(CreateCheckInOut.LocationReservationID);
+        return Number.isFinite(id) && id > 0 ? id : undefined;
+    };
+
+    const readJsonResponse = async (response: Response) => {
+        const res = await response.json();
+        if (!response.ok) {
+            throw new Error(res?.error || "Request failed");
+        }
+        return res;
+    };
+
     function checkAPI(id: number) {
         fetch(`${apiUrl}/locationReservationField/${id}`, requestOptionsGet)
-            .then((response) => response.json())
+            .then(readJsonResponse)
             .then((res) => {
                 if (res.data) {
                     setLocationReservation(res.data);
-                } else {
                 }
+            })
+            .catch(() => {
+                setErrorIn(true);
             });
         return true;
     }
 
     function shearch() {
-        let data = {
-            LocationReservationID: convertType(CreateCheckInOut.LocationReservationID),
+        const reservationID = getReservationID();
+        if (!reservationID) {
+            setErrorIn(true);
+            return;
         }
-        let strShearch: string = "" + CreateCheckInOut.LocationReservationID;
-        let numShearch = +strShearch;
-        checkAPI(numShearch);
+        checkAPI(reservationID);
     }
 
     function checkIn() {
+        const reservationID = getReservationID();
+        if (!reservationID) {
+            setErrorIn(true);
+            return;
+        }
+
         let data = {
             StaffID: convertType(CreateCheckInOut.StaffID),
-            LocationReservationID: convertType(CreateCheckInOut.LocationReservationID),
+            LocationReservationID: reservationID,
             StatusID: 1,
         }
-        let strShearch: string = "" + CreateCheckInOut.LocationReservationID;
-        let numCheckIn = +strShearch;
 
-        fetch(`${apiUrl}/cioChStatus/${numCheckIn}`, requestOptionsGet)
-            .then((response) => response.json())
+        fetch(`${apiUrl}/cioChStatus/${reservationID}`, requestOptionsGet)
+            .then(readJsonResponse)
             .then((res) => {
+                const checkInOutList = Array.isArray(res.data) ? res.data : [];
                 let num: number = 0;
-                for (let i = 0; i < res.data.length; i++) {
-                    let obj = res.data[i];
+                for (let i = 0; i < checkInOutList.length; i++) {
+                    let obj = checkInOutList[i];
                     if (obj.StatusID === 1) {
                         num += 1;
                     }
                 }
-                if (num == 0) {
+                if (num === 0) {
                     const requestOptions = {
                         method: "POST",
                         headers: {
@@ -241,24 +265,32 @@ function App() {
                 } else {
                     setErrorIn(true);
                 }
+            })
+            .catch(() => {
+                setErrorIn(true);
             });
     }
     function checkOut() {
+        const reservationID = getReservationID();
+        if (!reservationID) {
+            setErrorOut(true);
+            return;
+        }
+
         let data = {
             StaffID: convertType(CreateCheckInOut.StaffID),
-            LocationReservationID: convertType(CreateCheckInOut.LocationReservationID),
+            LocationReservationID: reservationID,
             StatusID: 2,
         }
-        let strShearch: string = "" + CreateCheckInOut.LocationReservationID;
-        let numCheckIn = +strShearch;
 
-        fetch(`${apiUrl}/cioChStatus/${numCheckIn}`, requestOptionsGet)
-            .then((response) => response.json())
+        fetch(`${apiUrl}/cioChStatus/${reservationID}`, requestOptionsGet)
+            .then(readJsonResponse)
             .then((res) => {
+                const checkInOutList = Array.isArray(res.data) ? res.data : [];
                 let num: number = 0;
                 let numFindStatus1: number = 0;
-                for (let i = 0; i < res.data.length; i++) {
-                    let obj = res.data[i];
+                for (let i = 0; i < checkInOutList.length; i++) {
+                    let obj = checkInOutList[i];
                     if (obj.StatusID === 1) {
                         numFindStatus1 += 1;
                     } else if (obj.StatusID === 2) {
@@ -286,6 +318,9 @@ function App() {
                 } else {
                     setErrorOut(true);
                 }
+            })
+            .catch(() => {
+                setErrorOut(true);
             });
     }
 
