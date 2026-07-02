@@ -63,7 +63,6 @@ async function ListLocationReservation() {
       .then((response) => response.json())
       .then((res) => {
       if (res.data) {
-          console.log("print",res.data);
           return res.data;
       } else {
           return false;

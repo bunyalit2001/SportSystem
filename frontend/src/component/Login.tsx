@@ -71,7 +71,6 @@ function Login() {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("uid", res.data.id);
           localStorage.setItem("role", res.data.role);
-          console.log(res.data);
           return res.data;
         } else {
           return false;

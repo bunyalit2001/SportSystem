@@ -57,7 +57,6 @@ function CreateSportEquipment() {
     fetch(`${apiUrl}/sport_equipment_type`, requestOptionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setSportEquipmentype(result.data);
       });
   };
@@ -66,7 +65,6 @@ function CreateSportEquipment() {
     fetch(`${apiUrl}/sport_type`, requestOptionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setSportType(result.data);
       });
   };
@@ -95,7 +93,6 @@ function CreateSportEquipment() {
   ) => {
     const id = event.target.id as keyof typeof sportequipment;
     const { value } = event.target;
-    console.log(id, value);
     // แก้ตรงนี้ จาก staff เป็น sportequipment
     setSportEquipment({ ...sportequipment, [id]: value });
   };
@@ -108,10 +105,8 @@ function CreateSportEquipment() {
         StaffID: res.ID,
       }));
       setStaff(res);
-      console.log(res);
     }
   };
-  // console.log(typeof sportequipment.StaffID);
 
   // เรียกใช้ feach
   useEffect(() => {
@@ -120,7 +115,6 @@ function CreateSportEquipment() {
     fetchStaffByID();
   }, []);
 
-  console.log(sportequipment);
 
   // คำสั่งซ้ำกันแยกออกมาเป็นฟังก์ชันอ่านง่ายกว่า
   const convertType = (data: string | number | undefined) => {
@@ -143,7 +137,6 @@ function CreateSportEquipment() {
       // Sport_Equipment_Amount: 1000,
     };
 
-    console.log("data", data);
 
     const requestOptions = {
       // method: "POST",
@@ -160,7 +153,6 @@ function CreateSportEquipment() {
     fetch(`${apiUrl}/Create_Sports_Equipment`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res);
         if (res.data) {
           setSuccess(true);
           window.location.href = "/sport_equipment_data";
@@ -168,7 +160,6 @@ function CreateSportEquipment() {
           setError(true);
         }
       });
-    // console.log(sportequipment.StaffID);
   }
 
   const [token, setToken] = useState<String>("");

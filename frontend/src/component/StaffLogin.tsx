@@ -44,7 +44,6 @@ function StaffLogin() {
     const id = event.target.id as keyof typeof stafflogin;
     const { value } = event.target;
     setStaffLogin({ ...stafflogin, [id]: value });
-    console.log(stafflogin);
   };
   
 
@@ -73,7 +72,6 @@ function StaffLogin() {
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("uid", res.data.id);
           localStorage.setItem("role", res.data.role);
-          console.log(res.data);
           return res.data;
         } else {
           return false;
