@@ -70,7 +70,6 @@ function LocationReservation() {
     fetch(`${apiUrl}/location`, requestOpionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setLocation(result.data);
       });
   };
@@ -79,7 +78,6 @@ function LocationReservation() {
     fetch(`${apiUrl}/sport_type`, requestOpionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setSportType(result.data);
       });
   };
@@ -91,7 +89,6 @@ function LocationReservation() {
     fetch(`${apiUrl}/Location_Reservations`, requestOpionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setLocationReservations(result.data);
       });
   };
@@ -129,9 +126,6 @@ function LocationReservation() {
       setMember(res);
     }
   };
-  console.log(typeof locationreservation.MemberID)
-
-  /////////////////////////////////////////////////////////////////////////
 
   /////////เรียกใช้feach/////////
   useEffect(() => {
@@ -140,9 +134,6 @@ function LocationReservation() {
     feachLocationReservation();
     fetchMemberByID();
   }, []);
-
-  console.log(locationreservation)
-  ////////////////////////////
 
   const columns: GridColDef[] = [
 
@@ -177,7 +168,6 @@ function LocationReservation() {
     fetch(`${apiUrl}/Location_Reservation`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res);
         if (res.data) {
           setSuccess(true);
           setTimeout(() => {
@@ -187,7 +177,6 @@ function LocationReservation() {
           setError(true);
         }
       });
-    console.log(locationreservation.MemberID)
   }
 
   const [token, setToken] = useState<String>("");
@@ -246,7 +235,7 @@ function LocationReservation() {
             </Box>
             <hr />
             <Grid container spacing={2} sx={{ padding: 2, marginX: 0.1 }}>
-              <Grid xs={6}>
+              <Grid item xs={12} sm={6}>
                 <h3>สถานที่ให้บริการต่างๆ</h3>
                 <p>สถานที่ให้บริการ</p>
                 <Select
@@ -267,10 +256,10 @@ function LocationReservation() {
                   ))}
                 </Select>
               </Grid>
-              <Grid xs={6} sx={{ padding: 1 }}>
+              <Grid item xs={12} sm={6} sx={{ padding: 1 }}>
 
               </Grid>
-              <Grid xs={6}>
+              <Grid item xs={12} sm={6}>
                 <p>ประเภทกีฬาที่ให้บริการ</p>
                 <Select
                   fullWidth
@@ -289,10 +278,10 @@ function LocationReservation() {
                   ))}
                 </Select>
               </Grid>
-              <Grid xs={6}>
+              <Grid item xs={12} sm={6}>
 
               </Grid>
-              <Grid xs={3} >
+              <Grid item xs={12} sm={3} >
                 <FormControl fullWidth variant="outlined">
                   <p>เวลาเข้า</p>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -304,7 +293,7 @@ function LocationReservation() {
                   </LocalizationProvider>
                 </FormControl>
               </Grid>
-              <Grid xs={3}>
+              <Grid item xs={12} sm={3}>
                 <FormControl fullWidth variant="outlined">
                   <p>เวลาออก</p>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -316,10 +305,10 @@ function LocationReservation() {
                   </LocalizationProvider>
                 </FormControl>
               </Grid>
-              <Grid xs={6}>
+              <Grid item xs={12} sm={6}>
 
               </Grid>
-              <Grid xs={6} sx={{ marginTop: 3 }}>
+              <Grid item xs={12} sm={6} sx={{ marginTop: 3 }}>
                 <Button
                   variant="contained"
                   color="secondary"
@@ -339,7 +328,7 @@ function LocationReservation() {
             </Grid>
           </Paper>
         </Container>
-        <div style={{ height: 400, width: "97%", marginTop: '20px', marginLeft: '23px' }}>
+        <div style={{ height: 400, width: "100%", marginTop: '20px', overflowX: "auto" }}>
           <h3>รายการจองสถานที่</h3>
           <DataGrid
             rows={locationreservations}

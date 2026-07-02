@@ -73,7 +73,6 @@ function CreateBorrow_Sport_Equipment() {
         fetch(`${apiUrl}/borrow-sport-eqiupments`, requestOptions)
             .then((response) => response.json())
             .then((res) => {
-                console.log(res.data);
                 if (res.data) {
                     setCreateBorrow_Sport_Equipments(res.data);
                 }
@@ -84,7 +83,6 @@ function CreateBorrow_Sport_Equipment() {
         fetch(`${apiUrl}/borrow-sport-eqiupments`, requestOpionsGet)
             .then((response) => response.json())
             .then((result) => {
-                console.log(result.data);
                 setCreateBorrow_Sport_Equipments(result.data);
             });
     };
@@ -93,7 +91,6 @@ function CreateBorrow_Sport_Equipment() {
         fetch(`${apiUrl}/sport_equipment_data`, requestOpionsGet)
             .then((response) => response.json())
             .then((result) => {
-                console.log(result.data);
                 setSport_Equipment(result.data);
             });
     };
@@ -102,7 +99,6 @@ function CreateBorrow_Sport_Equipment() {
         fetch(`${apiUrl}/sport_equipment_type`, requestOpionsGet)
             .then((response) => response.json())
             .then((result) => {
-                console.log(result.data);
                 setSport_Equipment_Type(result.data);
             });
     };
@@ -131,7 +127,6 @@ function CreateBorrow_Sport_Equipment() {
     ) => {
         const id = event.target.id as keyof typeof CreateBorrow_Sport_Equipment;
         const { value } = event.target;
-        console.log(id, value);
         // แก้ตรงนี้ จาก staff เป็น sportequipment
         setCreateBorrow_Sport_Equipment({ ...CreateBorrow_Sport_Equipment, [id]: value });
     };
@@ -146,7 +141,6 @@ function CreateBorrow_Sport_Equipment() {
             setMember(res);
         }
     };
-    console.log(typeof CreateBorrow_Sport_Equipment.MemberID)
 
     //เรียกช้ feach//
     useEffect(() => {
@@ -156,9 +150,6 @@ function CreateBorrow_Sport_Equipment() {
         getBorrowSportEquipment();
         fetchMemberByID();
     }, []);
-    console.log(CreateBorrow_Sport_Equipment)
-
-    /////////////////// จัดคอลัมน์รายการบันทึก //////////////////////
 
     const columns: GridColDef[] = [
         { field: "ID", headerName: "No.", width: 20 },
@@ -208,7 +199,6 @@ function CreateBorrow_Sport_Equipment() {
             Time_Giveback: Time_Giveback,
 
         }
-        console.log("data", data);
 
         const requestOptions = {
             // method: "POST",
@@ -225,7 +215,6 @@ function CreateBorrow_Sport_Equipment() {
         fetch(`${apiUrl}/borrow-sport-eqiupment`, requestOptions)
             .then((response) => response.json())
             .then((res) => {
-                console.log(res);
                 if (res.data) {
                     setSuccess(true);
                     window.location.href = "/CreateBorrow_Sport_Equipment"
@@ -387,7 +376,7 @@ function CreateBorrow_Sport_Equipment() {
                                 </Box>
                                 <hr />
                                 <Box>
-                                    <div style={{ height: 400, width: "100%", marginTop: "20px" }}>
+                                    <div style={{ height: 400, width: "100%", marginTop: "20px", overflowX: "auto" }}>
                                         <DataGrid
                                             rows={CreateBorrow_Sport_Equipments}
                                             getRowId={(row) => row.ID}

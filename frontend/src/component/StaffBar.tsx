@@ -32,9 +32,10 @@ function StaffBar() {
             <Box sx={{ flexGrow: 1 }}>
                 <ThemeProvider theme={Theme}>
                     <AppBar position="static">
-                        <Toolbar>
-                            <Typography variant="h6" color="secondary" component="div" sx={{ flexGrow: 1 }}>
+                        <Toolbar sx={{ flexWrap: "wrap", gap: 1, py: 1 }}>
+                            <Typography variant="h6" color="secondary" component="div" sx={{ flexGrow: 1, minWidth: { xs: "100%", sm: "auto" } }}>
                             <Button 
+                            size="small"
                             color="secondary" 
                             component={RouterLink}
                             to="/HomeStaff">
@@ -43,6 +44,7 @@ function StaffBar() {
                             Sport Center Management [ STAFF ]
                             </Typography>
                             <Button 
+                            size="small"
                             color="secondary" 
                             component={RouterLink}
                             to="/CreateCheckInOut">
@@ -51,6 +53,7 @@ function StaffBar() {
                                 Check In
                             </Button>
                             <Button 
+                            size="small"
                             color="secondary" 
                             component={RouterLink}
                             to="/sport_equipment_data">

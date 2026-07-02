@@ -29,9 +29,10 @@ function Homebar() {
             <Box sx={{ flexGrow: 1 }}>
                 <ThemeProvider theme={Theme}>
                     <AppBar position="static">
-                        <Toolbar>
-                            <Typography variant="h6" color="secondary" component="div" sx={{ flexGrow: 1 }}>
+                        <Toolbar sx={{ flexWrap: "wrap", gap: 1, py: 1 }}>
+                            <Typography variant="h6" color="secondary" component="div" sx={{ flexGrow: 1, minWidth: { xs: "100%", sm: "auto" } }}>
                             <Button 
+                            size="small"
                             color="secondary" 
                             component={RouterLink}
                             to="/">
@@ -40,6 +41,7 @@ function Homebar() {
                             Sport Center Management
                             </Typography>
                             <Button 
+                            size="small"
                             color="secondary" 
                             component={RouterLink}
                             to="/CreateReport">
@@ -47,6 +49,7 @@ function Homebar() {
                                 Report
                             </Button>
                             <Button 
+                            size="small"
                             color="secondary" 
                             component={RouterLink}
                             to="/CreateMember">
@@ -55,6 +58,7 @@ function Homebar() {
                                 CreateMember
                             </Button>
                             <Button 
+                            size="small"
                             color="secondary" 
                             component={RouterLink}
                             to="/Login">

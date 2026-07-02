@@ -55,7 +55,6 @@ function CreateReport() {
         fetch(`${apiUrl}/location`, requestOpionsGet)
             .then((response) => response.json())
             .then((result) => {
-                console.log(result.data);
                 setLocation(result.data);
             });
     };
@@ -64,7 +63,6 @@ function CreateReport() {
         fetch(`${apiUrl}/sport_equipment_type`, requestOpionsGet)
             .then((response) => response.json())
             .then((result) => {
-                console.log(result.data);
                 setSportEuqipmentType(result.data);
             });
     };
@@ -73,7 +71,6 @@ function CreateReport() {
         fetch(`${apiUrl}/sport_type`, requestOpionsGet)
             .then((response) => response.json())
             .then((result) => {
-                console.log(result.data);
                 setSportType(result.data);
             });
     };
@@ -102,7 +99,6 @@ function CreateReport() {
     ) => {
         const id = event.target.id as keyof typeof report;
         const { value } = event.target;
-        console.log(id, value);
         // แก้ตรงนี้ จาก staff เป็น sportequipment
         setReport({ ...report, [id]: value });
     };
@@ -115,7 +111,6 @@ function CreateReport() {
         feachSportType();
     }, []);
 
-    console.log(report);
     ////////////////////////////
 
     const convertType = (data: string | number | undefined) => {
@@ -131,7 +126,6 @@ function CreateReport() {
             Detail: report.Detail,
         };
 
-        console.log("data", data);
 
         const requestOptions = {
 
@@ -146,7 +140,6 @@ function CreateReport() {
         fetch(`${apiUrl}/report`, requestOptions)
             .then((response) => response.json())
             .then((res) => {
-                console.log(res);
                 if (res.data) {
                     setSuccess(true);
                     window.location.href = "/CreateReport"
@@ -199,7 +192,7 @@ function CreateReport() {
                         </Box>
                         <hr />
                         <Grid container spacing={2} sx={{ padding: 2, marginX: 0.1 }}>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                                 <p>สถานที่ให้บริการ</p>
                                 <Select
                                     fullWidth
@@ -219,7 +212,7 @@ function CreateReport() {
                                     ))}
                                 </Select>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                                 <p>รายละเอียดที่ต้องการเเจ้งให้สถานกีฬาทราบ</p>
                                 <TextField
                                     fullWidth
@@ -231,7 +224,7 @@ function CreateReport() {
                                     onChange={handleInputChange}
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                                 <p>ประเภทกีฬาที่ให้บริการ</p>
                                 <Select
                                     fullWidth
@@ -252,7 +245,7 @@ function CreateReport() {
                                 </Select>
                             </Grid>
                             <Grid item xs={6}></Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                                 <p>ประเภทอุปกรณ์กีฬาที่ให้บริการ</p>
                                 <Select
                                     fullWidth
@@ -273,7 +266,7 @@ function CreateReport() {
                                 </Select>
                             </Grid>
                             <Grid item xs={6}></Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                                 <Button
                                     variant="contained"
                                     color="secondary"

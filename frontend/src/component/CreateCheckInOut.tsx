@@ -78,7 +78,6 @@ function App() {
         fetch(`${apiUrl}/locationReservation/`, requestOptionsGet)
             .then((response) => response.json())
             .then((result) => {
-                console.log(result.data);
                 setStatus(result.data);
             });
     };
@@ -100,7 +99,6 @@ function App() {
             ...CreateCheckInOut,
             [id]: value
         })
-        console.log(id, "=", value); //แสดงค่าที่ป้อนเข้ามาในช่อง LocationReservation
     };
 
     const handleChange = (event: SelectChangeEvent) => {
@@ -139,7 +137,6 @@ function App() {
                 StaffID: res.ID,
             }));
             setStaffID(res);
-            console.log(res);
         }
     };
 
@@ -186,8 +183,6 @@ function App() {
         fetch(`${apiUrl}/locationReservationField/${id}`, requestOptionsGet)
             .then((response) => response.json())
             .then((res) => {
-                console.log('id ckeck api', res.data);
-                console.log('id ckeck id', id);
                 if (res.data) {
                     setLocationReservation(res.data);
                 } else {
@@ -202,12 +197,10 @@ function App() {
         }
         let strShearch: string = "" + CreateCheckInOut.LocationReservationID;
         let numShearch = +strShearch;
-        console.log("Now! Click Shearch..", numShearch);
         checkAPI(numShearch);
     }
 
     function checkIn() {
-        console.log("ข้อมูลที่เข้ามาตอนกด CheckIn", (CreateCheckInOut));
         let data = {
             StaffID: convertType(CreateCheckInOut.StaffID),
             LocationReservationID: convertType(CreateCheckInOut.LocationReservationID),
@@ -220,14 +213,11 @@ function App() {
             .then((response) => response.json())
             .then((res) => {
                 let num: number = 0;
-                console.log(res.data.length);
-                console.log(num);
                 for (let i = 0; i < res.data.length; i++) {
                     let obj = res.data[i];
                     if (obj.StatusID === 1) {
                         num += 1;
                     }
-                    // console.log("show",obj.StatusID);
                 }
                 if (num == 0) {
                     const requestOptions = {
@@ -242,7 +232,6 @@ function App() {
                     fetch(`${apiUrl}/createcio`, requestOptions)
                         .then((response) => response.json())
                         .then((res) => {
-                            console.log("Show data", res);
                             if (res.data) {
                                 setSuccessIn(true);
                             } else {
@@ -255,7 +244,6 @@ function App() {
             });
     }
     function checkOut() {
-        console.log("ข้อมูลที่เข้ามาตอนกด CheckOut", (CreateCheckInOut));
         let data = {
             StaffID: convertType(CreateCheckInOut.StaffID),
             LocationReservationID: convertType(CreateCheckInOut.LocationReservationID),
@@ -269,16 +257,12 @@ function App() {
             .then((res) => {
                 let num: number = 0;
                 let numFindStatus1: number = 0;
-                console.log("res.data.length>>checkOut", res.data.length);
-                // console.log("num for checkout",num);
                 for (let i = 0; i < res.data.length; i++) {
                     let obj = res.data[i];
                     if (obj.StatusID === 1) {
                         numFindStatus1 += 1;
-                        console.log("num for checkout", numFindStatus1);
                     } else if (obj.StatusID === 2) {
                         num += 1;
-                        console.log("num for checkout", num);
                     }
                 }
                 if ((numFindStatus1 === 1) && (num === 0)) {
@@ -293,7 +277,6 @@ function App() {
                     fetch(`${apiUrl}/createcio`, requestOptions)
                         .then((response) => response.json())
                         .then((res) => {
-                            console.log("Show data", res);
                             if (res.data) {
                                 setSuccessOut(true);
                             } else {
@@ -372,8 +355,8 @@ function App() {
                     </Box>
                     <hr />
 
-                    <Grid container spacing={2} sx={{ marginX: 5, marginY: 1, padding: 1, }}>
-                        <Grid item xs={4}>
+                    <Grid container spacing={2} sx={{ mx: { xs: 0, sm: 5 }, my: 1, p: 1 }}>
+                        <Grid item xs={12} sm={4}>
                             <p>รหัสการจองสถานที่ของสมาชิก</p>
                             <TextField
                                 fullWidth
@@ -411,11 +394,11 @@ function App() {
                                 startIcon={<AllInboxIcon />}>Find All
                             </Button>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} sm={6}>
                         </Grid>
                     </Grid>
-                    <Grid container sx={{ marginX: 5, marginY: -8, padding: 3, }}>
-                        <div style={{ height: 300, width: "90%", marginTop: "20px" }}>
+                    <Grid container sx={{ mx: { xs: 0, sm: 5 }, my: { xs: 2, sm: -8 }, p: { xs: 1, sm: 3 } }}>
+                        <div style={{ height: 300, width: "100%", marginTop: "20px", overflowX: "auto" }}>
                             <DataGrid
                                 rows={locationReservation}
                                 getRowId={(row) => row.ID}
@@ -425,7 +408,7 @@ function App() {
                             />
                         </div>
                     </Grid>
-                    <Grid container spacing={2} sx={{ marginX: 5, marginY: 5, padding: 1, }}>
+                    <Grid container spacing={2} sx={{ mx: { xs: 0, sm: 5 }, my: 5, p: 1 }}>
                         <Grid item>
                             <Button
                                 size="large"

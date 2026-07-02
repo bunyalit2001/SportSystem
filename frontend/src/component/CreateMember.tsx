@@ -69,7 +69,6 @@ function CreateMember() {
     fetch(`${apiUrl}/gender`, requestOpionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setGender(result.data);
       });
   };
@@ -78,7 +77,6 @@ function CreateMember() {
     fetch(`${apiUrl}/package`, requestOpionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setPackage(result.data);
       });
   };
@@ -87,7 +85,6 @@ function CreateMember() {
     fetch(`${apiUrl}/province`, requestOpionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setProvince(result.data);
       });
   };
@@ -126,8 +123,6 @@ function CreateMember() {
     feachProvince();
   }, []);
 
-  console.log(CreateMember)
-
   const convertType = (data: string | number | undefined) => {
     let val = typeof data === "string" ? parseInt(data) : data;
     return val;
@@ -148,7 +143,6 @@ function CreateMember() {
       PackageID: convertType(CreateMember.PackageID),
     }
 
-    console.log("data", data);
 
     const requestOptions = {
       method: "POST",
@@ -162,7 +156,6 @@ function CreateMember() {
     fetch(`${apiUrl}/createmember`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res);
         if (res.data) {
           setSuccess(true);
           setTimeout(() => {
@@ -218,10 +211,10 @@ function CreateMember() {
             </Box>
             <hr />
 
-            <Grid container spacing={2} sx={{ marginX: 5, marginY: 1, padding: 2, }}>
+            <Grid container spacing={2} sx={{ mx: { xs: 0, sm: 5 }, my: 1, p: { xs: 1, sm: 2 } }}>
 
               {/* e-mail */}
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <p>E-mail</p>
                 <TextField
                   fullWidth
@@ -235,12 +228,12 @@ function CreateMember() {
                 />
               </Grid>
 
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 {/*<Item>xs=4</Item>*/}
               </Grid>
 
               {/* password */}
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <p>Password</p>
                 <TextField
                   fullWidth
@@ -278,7 +271,7 @@ function CreateMember() {
               </Grid>
 
               {/* อายุ */}
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <p>อายุ</p>
                 <TextField
                   fullWidth
@@ -294,7 +287,7 @@ function CreateMember() {
               </Grid>
 
               {/* วันเกิด */}
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <FormControl fullWidth variant="outlined">
                   <p>วันเกิด</p>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -313,7 +306,7 @@ function CreateMember() {
               </Grid>
 
               {/* เพศ */}
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <p>เพศ</p>
                 <Select
                   fullWidth
@@ -339,7 +332,7 @@ function CreateMember() {
               </Grid>
 
               {/* น้ำหนัก */}
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <p>น้ำหนัก</p>
                 <TextField
                   fullWidth
@@ -355,7 +348,7 @@ function CreateMember() {
               </Grid>
 
               {/* ส่วนสูง */}
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <p>ส่วนสูง</p>
                 <TextField
                   fullWidth
@@ -375,7 +368,7 @@ function CreateMember() {
               </Grid>
 
               {/* จังหวัด */}
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={4}>
                 <p>จังหวัด</p>
                 <Select
                   fullWidth
@@ -401,7 +394,7 @@ function CreateMember() {
               </Grid>
 
               {/* เบอร์โทรศัพท์ */}
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={4}>
                 <p>เบอร์โทรศัพท์</p>
                 <TextField
                   fullWidth
@@ -420,7 +413,7 @@ function CreateMember() {
               </Grid>
 
               {/* package */}
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={4}>
                 <p>Package</p>
                 <Select
                   fullWidth
@@ -458,7 +451,7 @@ function CreateMember() {
                   onClick={submit}
                   variant="contained"
                   color="primary"
-                  sx={{ marginX: 23, }}>
+                  sx={{ width: { xs: "100%", sm: "auto" }, mx: { xs: 0, sm: 23 } }}>
                   SUBMIT
                 </Button>
               </Grid>

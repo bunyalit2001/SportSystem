@@ -32,9 +32,10 @@ function MemberBar() {
             <Box sx={{ flexGrow: 1 }}>
                 <ThemeProvider theme={Theme}>
                     <AppBar position="static">
-                        <Toolbar>
-                            <Typography variant="h6" color="secondary" component="div" sx={{ flexGrow: 1 }}>
+                        <Toolbar sx={{ flexWrap: "wrap", gap: 1, py: 1 }}>
+                            <Typography variant="h6" color="secondary" component="div" sx={{ flexGrow: 1, minWidth: { xs: "100%", sm: "auto" } }}>
                             <Button 
+                            size="small"
                             color="secondary" 
                             component={RouterLink}
                             to="/HomeMember">
@@ -43,6 +44,7 @@ function MemberBar() {
                             Sport Center Management [ MEMBER ]
                             </Typography>
                             <Button 
+                            size="small"
                             color="secondary" 
                             component={RouterLink}
                             to="/CreatePayment">
@@ -51,6 +53,7 @@ function MemberBar() {
                                 PayMent
                             </Button>
                             <Button 
+                            size="small"
                             color="secondary" 
                             component={RouterLink}
                             to="/CreateBorrow_Sport_Equipment">
@@ -59,6 +62,7 @@ function MemberBar() {
                                 Borrow
                             </Button> 
                             <Button 
+                            size="small"
                             color="secondary" 
                             component={RouterLink}
                             to="/CreateLocationReservation">

@@ -43,7 +43,6 @@ function SportEquipmentData() {
     fetch(`${apiUrl}/sport_equipment_data`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res.data);
         if (res.data) {
           setSportEquipments(res.data);
         }
@@ -95,7 +94,6 @@ function SportEquipmentData() {
     fetch(`${apiUrl}/sport_equipment_data`, requestOptionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setSportEquipments(result.data);
       });
   };
@@ -125,7 +123,7 @@ function SportEquipmentData() {
         <div />
 
         <Container maxWidth="lg">
-          <Box display="flex" sx={{ marginRight: 0, margin: 2, marginX: 126.3 }}>
+          <Box display="flex" sx={{ justifyContent: "flex-end", m: 2 }}>
             <Box>
               <Button
                 sx={{ float: 'right' }}
@@ -158,7 +156,7 @@ function SportEquipmentData() {
               <hr />
 
               <Box>
-                <div style={{ height: 400, width: "100%", marginTop: "20px" }}>
+                <div style={{ height: 400, width: "100%", marginTop: "20px", overflowX: "auto" }}>
                   <DataGrid
                     rows={sportquipments}
                     getRowId={(row) => row.ID}

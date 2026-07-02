@@ -60,7 +60,6 @@ function CreatePayment() {
     fetch(`${apiUrl}/package`, requestOpionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setPackage(result.data);
       });
   };
@@ -69,7 +68,6 @@ function CreatePayment() {
     fetch(`${apiUrl}/payment_type`, requestOpionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setPayment_Type(result.data);
       });
   };
@@ -78,7 +76,6 @@ function CreatePayment() {
     fetch(`${apiUrl}/bank`, requestOpionsGet)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data);
         setBank(result.data);
       });
   };
@@ -93,7 +90,6 @@ function CreatePayment() {
       setMember(res);
     }
   };
-  console.log(typeof CreatePayment.MemberID)
 
   const handleInputChange = (
     event: React.ChangeEvent<{ id?: string; value: any }>
@@ -101,7 +97,6 @@ function CreatePayment() {
     if(event.target.id != null){
     const id = event.target.id as keyof typeof CreatePayment;
     const { value } = event.target;
-    console.log(id, value);
     setCreatePayment({ ...CreatePayment, [id]: value });}
   };
 
@@ -126,7 +121,6 @@ function CreatePayment() {
     feachBank();
     fetchMemberByID();
   }, []);
-  console.log(CreatePayment);
 
 
   const convertType = (data: string | number | undefined) => {
@@ -157,7 +151,6 @@ function CreatePayment() {
       Datetime: datetime,
     };
 
-    console.log("data", data);
 
     const requestOptions = {
 
@@ -172,7 +165,6 @@ function CreatePayment() {
     fetch(`${apiUrl}/payment`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res);
         if (res.data) {
           setSuccess(true);
           window.location.href = "/CreatePayment";
@@ -234,7 +226,7 @@ function CreatePayment() {
               sx={{
                 marginTop: 1,
                 padding: 0,
-                marginX: 13,
+                mx: { xs: 2, sm: 13 },
               }}
             >
               <h1>ชำระเงิน</h1>
@@ -244,7 +236,7 @@ function CreatePayment() {
             <Grid container spacing={2} sx={{ padding: 2, marginX: 0.1 }}>
 
               {/* package */}
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
 
                 <h3>Package</h3>
                 <Select
@@ -267,7 +259,7 @@ function CreatePayment() {
                 </Select>
               </Grid>
               <Grid item xs={6}></Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <p><h3>ช่องทางรับชำระเงิน</h3></p>
                 <Select
                   fullWidth
@@ -286,7 +278,7 @@ function CreatePayment() {
                   ))}
                 </Select>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <p><h3>ชื่อธนาคาร</h3></p>
                 <Select
                   fullWidth
@@ -306,7 +298,7 @@ function CreatePayment() {
                 </Select>
               </Grid>
               <Grid item xs={6}></Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <h3>หมายเลขบัญชี</h3>
                 <TextField
                   required
@@ -320,7 +312,7 @@ function CreatePayment() {
                   onChange={handleInputChange} />
               </Grid>
               <Grid item xs={6}></Grid>
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
 
                 <FormControl fullWidth variant="outlined">
 
@@ -342,7 +334,7 @@ function CreatePayment() {
               </Grid>
 
               {/* วันเวลาที่ชำระ */}
-              <Grid item xs={3}>
+              <Grid item xs={12} sm={3}>
                 <FormControl fullWidth variant="outlined">
                   <p><h3>วันเวลาที่ชำระ</h3></p>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
