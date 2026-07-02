@@ -4,11 +4,21 @@
 
 โปรเจกต์นี้พัฒนาขึ้นเป็นส่วนหนึ่งของรายวิชา SA (System Analysis) และถูกจัดเรียบเรียงเป็น repository สำหรับแสดงผลงานบน GitHub
 
+## ✨ Features (ระบบที่รองรับ)
+- 👥 **ระบบสมาชิกและเจ้าหน้าที่:** สมัครสมาชิก เข้าสู่ระบบ และจัดการสิทธิ์การเข้าถึง (Role-based)
+- 🏟️ **การจองสนาม:** ค้นหาและทำรายการจองล่วงหน้า
+- 🏀 **การยืม-คืนอุปกรณ์กีฬา:** จัดการสต๊อกและการยืม
+- 💳 **ระบบชำระเงิน:** จัดการบิลและค่าบริการ
+- 🛠️ **ระบบแจ้งปัญหา:** สำหรับรายงานอุปกรณ์หรือสถานที่ชำรุด
+- ✅ **เช็คอิน/เช็คเอาท์:** บันทึกเวลาเข้าใช้งานสนามจริง
+
+<img src="review-login.png" width="70%" />
+
 ## Tech Stack
 
 - Backend: Go, Gin, GORM
 - Frontend: React, TypeScript, Material UI
-- Database: Neon PostgreSQL หรือ SQLite local fallback (`backend/sport-center-management.db`)
+- Database: Neon PostgreSQL
 
 ## โครงสร้างโปรเจกต์
 
@@ -26,8 +36,8 @@ sport-center-management-system/
 ## วิธี clone และรันทดสอบ
 
 ```bash
-git clone <repository-url>
-cd sport-center-management-system
+git clone https://github.com/bunyalit2001/SportSystem
+cd SportSystem
 ```
 
 ### 1. ลบฐานข้อมูลเดิม
@@ -38,14 +48,6 @@ cd sport-center-management-system
 rm -f backend/sport-center-management.db
 ```
 
-ถ้ารันด้วย Neon PostgreSQL ให้ตั้งค่า `DATABASE_URL` หรือวาง connection string ไว้ในไฟล์ `neon.md` ที่ root ของโปรเจกต์
-
-```bash
-export DATABASE_URL="postgresql://user:password@host/database?sslmode=require"
-```
-
-ไฟล์ `neon.md` ถูก ignore ไม่ให้ติด GitHub เพราะมี database credential
-
 ### 2. รัน Backend
 
 ```bash
@@ -54,7 +56,7 @@ go mod tidy
 go run main.go
 ```
 
-Backend จะรันที่:
+Backend จะรันที่
 
 ```text
 http://localhost:8080
@@ -63,13 +65,13 @@ http://localhost:8080
 Health check:
 
 ```text
-GET /healthz  # ตรวจว่า backend process ยังตอบได้
-GET /readyz   # ตรวจว่า backend ติดต่อ database ได้หรือไม่
+GET /healthz  # ตรวจว่า backend ทำงานได้
+GET /readyz   # ตรวจว่า backend ติดต่อ database ได้
 ```
 
 ### 3. รัน Frontend
 
-เปิด terminal อีกหน้าต่าง แล้วรันคำสั่ง:
+เปิด terminal อีกหน้าต่าง แล้วรันคำสั่ง
 
 ```bash
 cd frontend
@@ -77,38 +79,10 @@ npm install
 npm start
 ```
 
-ถ้า backend ไม่ได้รันที่ `http://localhost:8080` ให้ตั้งค่า API URL ก่อนรัน frontend:
-
-```bash
-REACT_APP_API_URL=https://your-backend-url npm start
-```
-
 Frontend จะรันที่:
 
 ```text
 http://localhost:3000
-```
-
-## Docker Backend
-
-สามารถ build backend เป็น Docker image ได้จากโฟลเดอร์ `backend`
-
-```bash
-cd backend
-docker build -t sport-center-api .
-docker run --rm -p 8080:8080 -e DATABASE_URL="postgresql://user:password@host/database?sslmode=require" sport-center-api
-```
-
-สำหรับ Fly.io ให้สร้าง `fly.toml` ภายหลังด้วย `fly launch` จากโฟลเดอร์ `backend` แล้วตั้งค่า `DATABASE_URL` เป็น secret:
-
-```bash
-fly secrets set DATABASE_URL="postgresql://user:password@host/database?sslmode=require"
-```
-
-ถ้าต้องการให้ GitHub Actions deploy backend อัตโนมัติ ให้สร้าง Fly API token แล้วเพิ่มเป็น GitHub repository secret ชื่อ `FLY_API_TOKEN`
-
-```bash
-fly tokens create deploy -x 999999h
 ```
 
 ## บัญชีเจ้าหน้าที่สำหรับทดสอบ
@@ -118,6 +92,8 @@ fly tokens create deploy -x 999999h
 ระบบ login จะคืนค่า `role` เป็น `member` หรือ `staff` และ frontend/backend ใช้ role นี้เพื่อจำกัดการเข้าถึงหน้าหรือ API ที่เกี่ยวข้อง
 
 ## การใช้งานเบื้องต้น
+
+<img src="review-retributive.png" width="70%" />
 
 1. เข้าเว็บที่ `http://localhost:3000`
 2. สมัครสมาชิกที่หน้า Create Member หรือเข้าสู่ระบบสมาชิกที่หน้า Login
@@ -129,6 +105,6 @@ fly tokens create deploy -x 999999h
 ## หมายเหตุ
 
 - Frontend เรียก API จาก `REACT_APP_API_URL` หรือ fallback ไปที่ `http://localhost:8080`
-- Backend จะใช้ `DATABASE_URL` ก่อน หากไม่มีจะลองอ่าน `neon.md` และถ้าไม่มีทั้งคู่จะ fallback เป็น SQLite local
+- Backend จะใช้ `DATABASE_URL` ถ้าไม่มีทั้งคู่จะ fallback เป็น SQLite local
 - หากรัน SQLite จาก path อื่น ฐานข้อมูล SQLite อาจถูกสร้างผิดตำแหน่ง ควรรันคำสั่งจากโฟลเดอร์ `backend`
 - สำหรับ Fly.io สามารถ setup ภายหลังได้ โดย backend ต้องตั้ง `DATABASE_URL` เป็น secret และ frontend ต้องตั้ง `REACT_APP_API_URL` ให้ชี้ไปยัง backend ที่ deploy แล้ว

@@ -95,5 +95,5 @@
 ## Notes
 
 - หากเปลี่ยน seed account หรือข้อมูลเริ่มต้น ต้องลบ `backend/sport-center-management.db` แล้วรัน backend ใหม่
-- Backend รองรับ Neon PostgreSQL ผ่าน `DATABASE_URL` หรือไฟล์ local `neon.md`
+- Backend รองรับ Neon PostgreSQL ผ่าน `DATABASE_URL`
 - ถ้าใช้ Neon แล้ว restart backend ซ้ำ seed data จะใช้ `ON CONFLICT DO NOTHING` เพื่อลดปัญหาข้อมูล lookup ซ้ำ
