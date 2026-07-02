@@ -98,6 +98,12 @@ docker run --rm -p 8080:8080 -e DATABASE_URL="postgresql://user:password@host/da
 fly secrets set DATABASE_URL="postgresql://user:password@host/database?sslmode=require"
 ```
 
+ถ้าต้องการให้ GitHub Actions deploy backend อัตโนมัติ ให้สร้าง Fly API token แล้วเพิ่มเป็น GitHub repository secret ชื่อ `FLY_API_TOKEN`
+
+```bash
+fly tokens create deploy -x 999999h
+```
+
 ## บัญชีเจ้าหน้าที่สำหรับทดสอบ
 
 ระบบมี seed data สำหรับบัญชีเจ้าหน้าที่ และมี flow การทดสอบแยกไว้ใน [FLOW.md](./FLOW.md)
